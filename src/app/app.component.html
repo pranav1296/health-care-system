@@ -1,20 +1,109 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<!-- <nav class="navbar navbar-light bg-light">
+  <span class="navbar-brand mb-0 h1">
+    <img src="./images/medical.png" width="30" height="30" alt="">
+    The General Hospital Home Health Care
+  </span>
+  <div class="navbar-nav">
+    <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+    <a class="nav-item nav-link" href="#">Features</a>
+    <a class="nav-item nav-link" href="#">Pricing</a>
+    <a class="nav-item nav-link disabled" href="#">Disabled</a>
+  </div>
+</nav> -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <span class="navbar-brand col-md-6">The General Hospital Home Health Care</span>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <span class="nav-item nav-link active" style="margin-left: 300px;">Login as: </span>
+      <button class="btn btn-secondary" style="margin-right: 30px;" (click) ="openLoginPhysician()"[disabled]="disableLoginButtons">Physician</button>
+      <button class="btn btn-secondary" (click) = "openLoginPatient()" [disabled]="disableLoginButtons">Patient</button>
+    </div>
+  </div>
+</nav>
+<img *ngIf="showImage"src="https://images.unsplash.com/photo-1505751172876-fa1923c5c528?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" width="100%" style="height: fit-content;">
+<div class="wrapper fadeInDown" *ngIf="loginType === 'physician'">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
+    <!-- Icon -->
+    <div class="fadeIn first" style="padding: 10px;">
+      Physician's Login Details
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In" (click)="showPhysiciansDetails()">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+<div class="wrapper fadeInDown" *ngIf="loginType === 'patient'">
+  <div id="formContent">
+    <!-- Tabs Titles -->
+
+    <!-- Icon -->
+    <div class="fadeIn first" style="padding: 10px;">
+      Patient's Login Details
+    </div>
+
+    <!-- Login Form -->
+    <form>
+      <input type="text" id="login" class="fadeIn second" name="login" placeholder="login">
+      <input type="password" id="password" class="fadeIn third" name="login" placeholder="password">
+      <input type="submit" class="fadeIn fourth" value="Log In" (click)="showPatientsDetails()">
+    </form>
+
+    <!-- Remind Passowrd -->
+    <div id="formFooter">
+      <a class="underlineHover" href="#">Forgot Password?</a>
+    </div>
+
+  </div>
+</div>
+<table class="table" *ngIf="dataType ==='physician'">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First</th>
+      <th scope="col">Last</th>
+      <th scope="col">Age</th>
+      <th scope="col">Sex</th>
+      <th scope="col">Patient ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of patientsList; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{patient.firstName}}</td>
+      <td>{{patient.lastName}}</td>
+      <td>{{patient.age}}</td>
+      <td>{{patient.sex}}</td>
+      <td>{{patient.id}}</td>
+    </tr>
+  </tbody>
+</table>
+<table class="table" *ngIf="dataType ==='patient'">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Treatment Name</th>
+      <th scope="col">Total Cost of Treatment</th>
+      <th scope="col">Currency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of treatments; let i = index">
+      <th scope="row">{{i+1}}</th>
+      <td>{{patient.name}}</td>
+      <td>{{patient.amount}}</td>
+      <td>{{patient.currency}}</td>
+    </tr>
+  </tbody>
+</table>
