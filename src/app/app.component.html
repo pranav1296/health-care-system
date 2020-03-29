@@ -67,6 +67,7 @@
 
   </div>
 </div>
+<div></div>
 <table class="table" *ngIf="dataType ==='physician'">
   <thead>
     <tr>
@@ -76,6 +77,7 @@
       <th scope="col">Age</th>
       <th scope="col">Sex</th>
       <th scope="col">Patient ID</th>
+      <th scope="col">Prescription</th>
     </tr>
   </thead>
   <tbody>
@@ -86,24 +88,28 @@
       <td>{{patient.age}}</td>
       <td>{{patient.sex}}</td>
       <td>{{patient.id}}</td>
+      <td><input (keyup)="getPrescription($event)" type="text"></td>
     </tr>
   </tbody>
 </table>
-<table class="table" *ngIf="dataType ==='patient'">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Treatment Name</th>
-      <th scope="col">Total Cost of Treatment</th>
-      <th scope="col">Currency</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let patient of treatments; let i = index">
-      <th scope="row">{{i+1}}</th>
-      <td>{{patient.name}}</td>
-      <td>{{patient.amount}}</td>
-      <td>{{patient.currency}}</td>
-    </tr>
-  </tbody>
-</table>
+<div *ngIf="dataType ==='patient'">
+  <div style="padding: 5px; text-align: justify; font-size: x-large;">Prescription by the Doctor: {{patientPrescription}}</div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Treatment Name</th>
+        <th scope="col">Total Cost of Treatment</th>
+        <th scope="col">Currency</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let patient of treatments; let i = index">
+        <th scope="row">{{i+1}}</th>
+        <td>{{patient.name}}</td>
+        <td>{{patient.amount}}</td>
+        <td>{{patient.currency}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

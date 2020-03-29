@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +9,7 @@ export class AppComponent {
   title = 'health-care-system';
   disableLoginButtons = false;
   showImage = true;
+  patientPrescription = '';
   loginType = '';
   dataType = '';
   treatments = [
@@ -84,6 +85,9 @@ export class AppComponent {
       id: 'S1335'
     }
   ]
+  getPrescription(event: any) {
+    sessionStorage.setItem('prescription', event.target.value);
+  }
   openLoginPhysician() {
     this.loginType = 'physician';
     this.showImage = false;
@@ -99,6 +103,7 @@ export class AppComponent {
   }
   showPatientsDetails() {
     this.loginType = '';
+    this.patientPrescription = sessionStorage.getItem('prescription');
     this.disableLoginButtons = true;
     this.dataType = 'patient';
   }
